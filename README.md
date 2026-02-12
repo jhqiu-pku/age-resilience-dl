@@ -1,4 +1,4 @@
-## Climate change-induced resilience loss mitigated by young forest age in China
+## Younger forest age structure offsets climate-induced ecosystem resilience loss in China
 
 This repository contains the supporting code for the paper:
 

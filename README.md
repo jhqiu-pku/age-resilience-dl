@@ -2,7 +2,7 @@
 
 This repository contains the supporting code for the paper:
 
-> Qiu *et al.* (2026), **Younger forest age structure offsets climate-induced ecosystem resilience loss in China**, (under review)
+> Qiu *et al.* (2026), **Younger forest age structure offsets climate-induced ecosystem resilience loss in China**, (Submitted to Journal)
 
 ### Overview
 

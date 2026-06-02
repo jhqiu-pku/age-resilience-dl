@@ -3,11 +3,11 @@ Compute pixel-wise linear trends from gridded time series.
 
 Two use cases are supported
 ---------------------------
-1) Meteorological-type variables:
+1) Meteorological variables:
    - Input: monthly GeoTIFF files
    - Workflow: load data -> moving-window mean -> trend estimation
 
-2) Derived metrics (resilience / TAC):
+2) Resilience:
    - Input: precomputed TAC array
    - Workflow: trend estimation
 """
@@ -103,8 +103,7 @@ def compute_window_trend(date_range, data_dir, window):
 if __name__ == "__main__":
 
     # ==================================================
-    # Case 1: Meteorological-type variables
-    # (monthly GeoTIFFs)
+    # Case 1: Meteorological variables
     # ==================================================
     MET_DATA_DIR = "<PATH_TO_MONTHLY_TIFFS>"
 
@@ -115,8 +114,7 @@ if __name__ == "__main__":
     )
 
     # ==================================================
-    # Case 2: Derived metrics (e.g., TAC / resilience)
-    # (computed TAC array, trend only)
+    # Case 2: Resilience
     # ==================================================
     TAC_ARRAY_PATH = "<PATH_TO_TACT_ARRAY_NPY>"
     tac_arr = np.load(TAC_ARRAY_PATH)

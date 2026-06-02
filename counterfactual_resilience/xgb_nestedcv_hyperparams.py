@@ -5,7 +5,7 @@ Nested cross-validation with randomized hyperparameter search for XGBoost.
    independent training partitions.
 2) An inner cv within each outer split
    to select optimal hyperparameters via random sampling from a discrete
-   candidate space, with explicit de-duplication of sampled configurations.
+   candidate space.
 
 Inputs
 ------
@@ -42,7 +42,6 @@ def randomized_search_cv(
     Unique parameter combinations are randomly sampled from a discrete
     candidate space and evaluated using K-fold cross-validation.
     """
-    # Random number generator for parameter sampling
     rng = np.random.RandomState(random_state)
 
     # Inner CV used to estimate model performance for each parameter set
@@ -65,12 +64,10 @@ def randomized_search_cv(
         params = {k: rng.choice(v) for k, v in zip(keys, space)}
         param_key = tuple(params[k] for k in keys)
 
-        # Skip configurations that have already been evaluated
         if param_key in tried_param_set:
             continue
         tried_param_set.add(param_key)
 
-        # Clone the base estimator to ensure independence between trials
         est = clone(estimator)
         est.set_params(**params)
 
@@ -86,7 +83,6 @@ def randomized_search_cv(
 
         mean_score = float(np.mean(scores))
 
-        # Update the best configuration if performance improves
         if mean_score > best_score:
             best_score = mean_score
             best_params = params
@@ -114,9 +110,6 @@ def run_nested_cv_xgb(
     """
     Run nested cross-validation for XGBoost and return hyperparameters
     selected in each outer fold.
-
-    The outer loop provides an unbiased data partitioning, while the inner
-    loop identifies optimal hyperparameters based solely on training data.
     """
     best_params_per_fold = []
 
@@ -133,7 +126,6 @@ def run_nested_cv_xgb(
         y_train = y.iloc[train_idx]
 
         # Base estimator used for hyperparameter evaluation
-        # Parallelism is controlled at the CV level
         base_est = xgb.XGBRegressor(
             objective="reg:squarederror",
             random_state=random_state + fold_idx,

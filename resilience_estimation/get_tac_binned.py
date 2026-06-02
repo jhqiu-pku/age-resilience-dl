@@ -1,5 +1,5 @@
 """
-Compute 2D binned mean of TAC as a function of the relative importance of climatic
+Compute 2D binned mean of TAC Trend as a function of the relative importance of climatic
 control on GPP variability and the corresponding meteorological trend.
 """
 
@@ -23,14 +23,14 @@ def compute_binned_mean(
     met : np.ndarray
         Trend of the corresponding meteorological variable, 2D array (lat, lon).
     tgt : np.ndarray
-        Target variable (TAC), 2D array (lat, lon).
+        Target variable (TAC Trend), 2D array (lat, lon).
     bins : int, optional
         Number of bins along each dimension.
 
     Returns
     -------
     bin_mean : np.ndarray
-        Mean TAC in each (met, ctl) bin, shape (bins, bins).
+        Mean TAC Trend in each (met, ctl) bin, shape (bins, bins).
         bin_mean[i, j] corresponds to met_bins[i]..met_bins[i+1] and
         ctl_bins[j]..ctl_bins[j+1].
     """
@@ -74,6 +74,6 @@ if __name__ == "__main__":
     # Input arrays must share identical spatial dimensions (lat, lon)
     ctl_arr = np.load("<PATH_TO_CLIMATIC_CONTROL_IMPORTANCE_ARRAY>")
     met_arr = np.load("<PATH_TO_METEOROLOGICAL_TREND_ARRAY>")
-    tgt_arr = np.load("<PATH_TO_TAC_ARRAY>")
+    tgt_arr = np.load("<PATH_TO_TAC_TREND_ARRAY>")
 
     tac_bin = compute_binned_mean(ctl_arr, met_arr, tgt_arr, bins=50)
